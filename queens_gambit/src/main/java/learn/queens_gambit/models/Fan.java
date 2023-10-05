@@ -1,10 +1,9 @@
 package learn.queens_gambit.models;
 
 public class Fan {
-        private Long id;
-        private String firstName;
-        private String lastName;
-        private Integer fideRating;
+    private Long id;
+    private String firstName;
+    private String lastName;
 
     public Long getId() {
         return id;
@@ -29,22 +28,4 @@ public class Fan {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public Integer getFideRating() {
-        return fideRating;
-    }
-
-    public void setFideRating(Integer fideRating) {
-        this.fideRating = fideRating;
-    }
-
-    public String getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(String favorite) {
-        this.favorite = favorite;
-    }
-
-    private String favorite;
-    }
+}
