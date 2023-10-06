@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end; 
@@ -23,16 +24,23 @@ const CancelButton = styled.button`
 
 
 const CharacterManagement = () => {
-  const [characters, setCharacters] = useState([
+  const [characters, setCharacters] = useState([]);
+    /*
     { id: 1, name: 'Beth Harmon', details: 'Chess prodigy' },
     { id: 2, name: 'Benny Watts', details: 'Grandmaster' },
     { id: 3, name: 'Harry Beltik', details: 'Former Kentucky State Champion' },
     { id: 4, name: 'Alma Wheatley ', details: 'Mother to Beth' },
     { id: 5, name: 'Jolene', details: 'Beth s bestfriend' },
-  ]);
+    */
+
 
   const [editingCharacter, setEditingCharacter] = useState(null);
-  const [newCharacter, setNewCharacter] = useState({ name: '', details: '' });
+  const [newCharacter, setNewCharacter] = useState({
+     first_name: '',
+     last_name: '',
+     gender:'',
+     country: '',
+     FIDE_rating: '', });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -40,7 +48,7 @@ const CharacterManagement = () => {
   }, []);
 
   const fetchCharacterData = () => {
-    fetch('/api/characters')
+    fetch('http://localhost:8080/api/characters')
       .then((response) => response.json())
       .then((data) => setCharacters(data))
       .catch((error) => console.error('Error fetching character data:', error));
@@ -58,7 +66,7 @@ const CharacterManagement = () => {
 
     if (!newCharacter.name.trim()) {
       newErrors.name = 'Name is required';
-      isValid = false;
+      isValid = false
     }
 
     if (!newCharacter.details.trim()) {
@@ -73,8 +81,9 @@ const CharacterManagement = () => {
   const handleAddCharacter = () => {
     if (validateForm()) {
       const method = editingCharacter ? 'PUT' : 'POST';
+      const Url = editingCharacter ? `http://localhost:8080/api/characters/${editingCharacter.id}` : 'http://localhost:8080/api/characters'
 
-      fetch('/api/characters/', {
+      fetch(Url,  {
         method,
         headers: {
           'Content-Type': 'application/json'
@@ -84,11 +93,11 @@ const CharacterManagement = () => {
         .then(response => response.json())
         .then(data => {
           if (method === 'POST') {
-            setCharacters([...characters, { id: data.id, ...newCharacter }]);
+            setCharacters([...characters, data]);
           } else if (method === 'PUT') {
             setCharacters(characters.map(character =>
               character.id === editingCharacter.id ? { ...data, ...newCharacter } : character
-            ));
+            ))
           }
           setEditingCharacter(null);
           setNewCharacter({ name: '', details: '' });
@@ -112,7 +121,17 @@ const CharacterManagement = () => {
 
   const handleDeleteCharacter = (character) => {
     if (window.confirm('Are you sure you want to delete this character?')) {
-      setCharacters(characters.filter((c) => c.id !== character.id));
+      fetch (`/api/characters/${character.id}` , {
+        method: 'DELETE' , 
+
+      })
+      .then((response) => {
+        if(response.ok) {
+          setCharacters (character.filter((c) => c.id !== character.id));
+      
+        }
+      })
+      .catch((error) => console.error('Error deleting character:', error));
     }
   };
 

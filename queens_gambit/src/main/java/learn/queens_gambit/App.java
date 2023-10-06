@@ -11,4 +11,24 @@ public class App {
 
     public static void main(String[] args) {SpringApplication.run(App.class, args);}
 
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+
+        // Configure CORS globally versus
+        // controller-by-controller.
+        // Can be combined with @CrossOrigin.
+        return new WebMvcConfigurer() {
+
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("*")
+                        // Should tighten up CORS policies.
+                        // For now, we allow everything.
+                        //.allowedOrigins("http://localhost:3000", "http://127.0.0.1:5500")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+            }
+        };
+    }
+
 }
