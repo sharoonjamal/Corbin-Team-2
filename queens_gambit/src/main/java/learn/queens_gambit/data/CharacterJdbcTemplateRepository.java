@@ -22,7 +22,7 @@ public class CharacterJdbcTemplateRepository implements CharacterRepository {
 
     @Override
     public List<Character> findAll() {
-        final String sql = "select character_id, first_name, last_name "
+        final String sql = "select character_id, first_name, last_name, gender, country, FIDE_rating "
                 + "from characters limit 1000;";
         return jdbcTemplate.query(sql, new CharacterMapper());
     }
@@ -31,7 +31,7 @@ public class CharacterJdbcTemplateRepository implements CharacterRepository {
     @Transactional
     public Character findById(Long character_id) {
 
-        final String sql = "select character_id, first_name, last_name "
+        final String sql = "select character_id, first_name, last_name, gender, country, FIDE_rating  "
                 + "from characters "
                 + "where character_id = ?;";
 
@@ -44,14 +44,18 @@ public class CharacterJdbcTemplateRepository implements CharacterRepository {
     @Override
     public Character add(Character character) {
 
-        final String sql = "insert into characters (first_name, last_name)"
-                + " values (?,?);";
+        final String sql = "insert into characters (first_name, last_name, gender, country, FIDE_rating)"
+                + " values (?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, character.getFirstName());
             ps.setString(2, character.getLastName());
+            ps.setString(3, character.getGender());
+            ps.setString(4, character.getCountry());
+            ps.setLong(5, character.getFideRating());
+
             return ps;
         }, keyHolder);
 
@@ -66,8 +70,8 @@ public class CharacterJdbcTemplateRepository implements CharacterRepository {
     @Override
     public boolean update(Character character) {
 
-        final String sql = "update characters set first_name = ?, last_name = ? where character_id = ?;";
-        int res = jdbcTemplate.update(sql, character.getFirstName(), character.getLastName(), character.getCharacterId());
+        final String sql = "update characters set first_name = ?, last_name = ?, gender = ?, country = ?, FIDE_rating = ? where character_id = ?;";
+        int res = jdbcTemplate.update(sql, character.getFirstName(), character.getLastName(), character.getGender(), character.getCountry(),character.getFideRating(), character.getCharacterId());
         if (res == 1){
             return true;
         }else {

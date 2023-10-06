@@ -13,6 +13,9 @@ public class CharacterMapper implements RowMapper<Character> {
         character.setCharacterId(resultSet.getLong("character_id"));
         character.setFirstName(resultSet.getString("first_name"));
         character.setLastName(resultSet.getString("last_name"));
+        character.setGender(resultSet.getString("gender"));
+        character.setCountry(resultSet.getString("country"));
+        character.setFideRating(resultSet.getLong("FIDE_rating"));
         return character;
     }
 }

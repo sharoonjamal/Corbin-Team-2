@@ -13,6 +13,10 @@ public class FanMapper implements RowMapper<Fan> {
         fan.setId(resultSet.getLong("id"));
         fan.setFirstName(resultSet.getString("first_name"));
         fan.setLastName(resultSet.getString("last_name"));
+        fan.setEmail(resultSet.getString("email"));
+        fan.setCountry(resultSet.getString("country"));
+        fan.setFavoriteCharacterId(resultSet.getLong("favorite_character_id"));
+        fan.setFideRating(resultSet.getLong("FIDE_rating"));
         return fan;
     }
 }
