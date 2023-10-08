@@ -25,15 +25,6 @@ const CancelButton = styled.button`
 
 const CharacterManagement = () => {
   const [characters, setCharacters] = useState([]);
-    /*
-    { id: 1, name: 'Beth Harmon', details: 'Chess prodigy' },
-    { id: 2, name: 'Benny Watts', details: 'Grandmaster' },
-    { id: 3, name: 'Harry Beltik', details: 'Former Kentucky State Champion' },
-    { id: 4, name: 'Alma Wheatley ', details: 'Mother to Beth' },
-    { id: 5, name: 'Jolene', details: 'Beth s bestfriend' },
-    */
-
-
   const [editingCharacter, setEditingCharacter] = useState(null);
   const [newCharacter, setNewCharacter] = useState({
      firstName: '',
@@ -41,6 +32,7 @@ const CharacterManagement = () => {
      gender:'',
      country: '',
      fideRating: '', });
+     
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -256,8 +248,11 @@ const CharacterManagement = () => {
       <ul className="character-list">
         {characters.map((character) => (
           <li key={character.id}>
-            <strong>Name:</strong> {character.firstName}<br />
-            <span><strong>Details:</strong> {character.details}</span>
+            <strong>Name:</strong> {character.firstName} {character.lastName}<br />
+            <strong>Gender:</strong> {character.gender}<br />
+            <strong>Country:</strong> {character.country}<br />
+            <strong>FIDE Rating:</strong> {character.fideRating}<br />
+         
             <button onClick={() => handleEditCharacter(character)}>Edit</button>
             <button onClick={() => handleDeleteCharacter(character)}>Delete</button>
           </li>

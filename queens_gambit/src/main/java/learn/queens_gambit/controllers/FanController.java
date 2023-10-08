@@ -35,7 +35,7 @@ public class FanController {
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
-        return ErrorResponse.build(result);  // Ensure ErrorResponse is adapted for Fan
+        return new ResponseEntity<>(result.getMessages(), HttpStatus.BAD_REQUEST);  // Ensure ErrorResponse is adapted for Fan
     }
 
     @PutMapping("/{fanId}")
