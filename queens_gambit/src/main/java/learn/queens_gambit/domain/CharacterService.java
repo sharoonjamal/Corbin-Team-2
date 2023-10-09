@@ -2,6 +2,7 @@ package learn.queens_gambit.domain;
 
 import learn.queens_gambit.data.CharacterRepository;
 import learn.queens_gambit.models.Character;
+import learn.queens_gambit.models.Fan;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,10 +56,40 @@ public class CharacterService {
         return repository.deleteById(characterId);
     }
 
+
+
     private Result<Character> validate(Character character) {
         // Implement validation logic
         // Check for null values, empty strings, etc.
-        // Return a Result<Character> object accordingly
-        return new Result<>();  // Placeholder: adjust accordingly
+        // Return a Result<Fan> object accordingly
+
+        Result<Character> result = new Result<>();
+        if (character == null) {
+            result.addMessage("character cannot be null", ResultType.INVALID);
+            return result;
+        }
+
+        if (Validations.isNullOrBlank(character.getFirstName())) {
+            result.addMessage("firstName is required", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(character.getLastName())) {
+            result.addMessage("lastName is required", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(character.getGender())) {
+            result.addMessage("Gender is required", ResultType.INVALID);
+        }
+
+        if (Validations.isBlank(character.getFideRating())) {
+            result.addMessage("FIDE rating is required", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(character.getCountry())) {
+            result.addMessage("country is required", ResultType.INVALID);
+        }
+
+        return result;
+
     }
 }

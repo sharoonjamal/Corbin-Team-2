@@ -4,6 +4,7 @@ import learn.queens_gambit.data.FanRepository;
 import learn.queens_gambit.models.Fan;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -11,11 +12,17 @@ public class FanService {
 
     private final FanRepository repository;
 
-    public FanService(FanRepository repository) {this.repository = repository;}
+    public FanService(FanRepository repository) {
+        this.repository = repository;
+    }
 
-    public List<Fan> findAll() {return repository.findAll();}
+    public List<Fan> findAll() {
+        return repository.findAll();
+    }
 
-    public Fan findById(Long fanId) {return repository.findById(fanId);}
+    public Fan findById(Long fanId) {
+        return repository.findById(fanId);
+    }
 
     public Result<Fan> add(Fan fan) {
         Result<Fan> result = validate(fan);
@@ -23,7 +30,7 @@ public class FanService {
             return result;
         }
 
-        if (null!= fan.getId()) {
+        if (null != fan.getId()) {
             result.addMessage("fanId cannot be set for `add` operation", ResultType.INVALID);
             return result;
         }
@@ -52,12 +59,43 @@ public class FanService {
         return result;
     }
 
-    public boolean deleteById(Long fanId) {return repository.deleteById(fanId);}
+    public boolean deleteById(Long fanId) {
+        return repository.deleteById(fanId);
+    }
 
     private Result<Fan> validate(Fan fan) {
         // Implement validation logic
         // Check for null values, empty strings, etc.
         // Return a Result<Fan> object accordingly
-        return new Result<>();  // Placeholder: adjust accordingly
+
+        Result<Fan> result = new Result<>();
+        if (fan == null) {
+            result.addMessage("fan cannot be null", ResultType.INVALID);
+            return result;
+        }
+
+        if (Validations.isNullOrBlank(fan.getFirstName())) {
+            result.addMessage("firstName is required", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(fan.getLastName())) {
+            result.addMessage("lastName is required", ResultType.INVALID);
+        }
+
+        if (Validations.isNullOrBlank(fan.getEmail())) {
+            result.addMessage("email is required", ResultType.INVALID);
+        }
+
+        if (Validations.isBlank(fan.getFideRating())) {
+            result.addMessage("FIDE rating is required", ResultType.INVALID);
+        }
+
+        if (Validations.isBlank(fan.getFavoriteCharacterId())) {
+            result.addMessage("favorite character ID is required", ResultType.INVALID);
+        }
+
+
+        return result;
+
     }
 }
