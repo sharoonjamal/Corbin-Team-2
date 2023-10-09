@@ -9,9 +9,13 @@ const Borgov = () => {
             <div className="character-summary">
                 <h1>Borgov Vasily</h1>
                 <p>
-                    Vasily Borgov is a Russian chess player and the reigning World Champion. Borgov is in his late 30s when Beth first encounters him in Mexico City; he has bushy eyebrows, coarse black hair, and an authoritarian scowl. She is completely intimidated by him and his natural sense of belonging in and ownership over the chess world.
-                    Borgov is often surrounded by other players, particularly other high-ranked Russian players, which makes Beth feel out of place in comparison. Beth believes that he deliberately avoids looking at her or interacting with her as a way to make her feel insignificant. The first time Beth encounters him, she completely falls apart, relying only on instinct. She then studies for months with Benny and Beltik to face Borgov in Paris, but even then, Beth cannot beat him. She continues to prepare, again with the help of friends, to face him at a tournament in Moscow, where, at the climax of the book, she is finally able to use both her intuition, her vast base of knowledge, and her friends’ help to beat him. After this loss, Borgov smiles warmly at her and hugs her, illustrating how Beth’s doubts about him and fear of him are primarily internal and borne of her own sense that she doesn’t belong in the chess world.
-                    Borgov's character was made in the image of the greatest chess player of that era: Boris Spassky.
+                Ladies and gentlemen, chess enthusiasts from around the globe, gather 'round as we delve into the enigmatic world of Borgov, the chess virtuoso who's captured the hearts and minds of chess fans in the Queen's Gambit universe.
+
+Borgov is no ordinary grandmaster; he's the embodiment of chess brilliance. With his icy demeanor and unwavering focus, he's a force to be reckoned with on the 64 squares. In the high-stakes world of competitive chess, Borgov's name echoes with reverence and awe.
+
+With a style that's as enigmatic as his personality, Borgov's moves on the board are a sight to behold. His chess mastery is an art form, a symphony of strategy and intellect that leaves opponents bewildered and audiences in awe.
+
+In the Queen's Gambit world, Borgov is not just a player; he's a legend, an icon, and a symbol of the pinnacle of chess excellence. Whether you love him or fear him, there's no denying that Borgov is a central figure in the thrilling chess drama that unfolds in this captivating series.
                 </p>
                 {/* Back to Home Page Link */}
                 <Link to="/">Home</Link>
