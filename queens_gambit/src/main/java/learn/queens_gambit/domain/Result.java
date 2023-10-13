@@ -11,6 +11,10 @@ public class Result<T> {
     private ResultType type = ResultType.SUCCESS;
     private T payload;
 
+    public void addMessage(String message) {
+        messages.add(message);
+    }
+
     public ResultType getType() {
         return type;
     }
